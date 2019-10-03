@@ -14,8 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.conf.urls import url, include
+from fplapp import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # Invoke home view in fplapp app home by default
+    url(r'^$', views.home, name='home'),
+    url(r'^fpl/', include('fplapp.urls', namespace='fplapp')),
+    url(r'^admin/', admin.site.urls),
 ]
