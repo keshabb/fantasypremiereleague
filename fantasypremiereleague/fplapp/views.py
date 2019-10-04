@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_page
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse, HttpResponseRedirect
 from fplapp.ranking import Rank
+from fplapp.forms import ContactForm
 
 
 def home(request):
@@ -56,3 +59,24 @@ def analysis(request):
 
 def bot(request):
     return render(request, 'fplapp/bot.html')
+
+
+def email_view(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, from_email, ['test@example.com'])
+            except BadHeaderError:
+                return HttpResponse("Invalid header found")
+            return redirect("success")
+    return render(request, "fplapp/contact.html", {'form': form})
+
+
+def success_view(request):
+    return HttpResponse('Success! Thank you for your message.')
