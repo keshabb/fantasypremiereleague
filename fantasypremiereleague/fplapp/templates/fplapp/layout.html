@@ -23,8 +23,9 @@
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav authed-nav">
           <li id='home-nav'><a href="/">Home</a></li>
-          <li id='data-nav'><a href="/fpl/data">Data</a></li>
-          <li id='fix-diff-nav'><a href="/fpl/fixture-difficulty">Fixture Difficulty</a></li>
+          <li id='ranking-nav'><a href="/fpl/ranking.html">Ranking</a></li>
+          <li id='fixture-nav'><a href="/fpl/fixture">Fixture</a></li>
+          <li id='history-nav'><a href="/fpl/history">History</a></li>
           <li id='contacts-nav'><a href="/fpl/contacts">Contacts</a></li>
         </ul>
       </div>
@@ -34,6 +35,11 @@
   <div class="container main-container">
     {% block content %}{% endblock %}
   </div>
-
+  <footer id="footer" class="footer">
+    <div class="container">
+    {% include "fplapp/footer.html" %}
+    EPL ramilo Version: <a href={{ settings.VERSION_URL }}>{{ settings.SITE_VERSION }}</a>
+    </div>
+  </footer>
 </body>
 </html>

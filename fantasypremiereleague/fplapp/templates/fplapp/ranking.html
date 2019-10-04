@@ -1,0 +1,34 @@
+{% extends "fplapp/layout.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h2>Fantasy Premiere League</h2>
+</div>
+<body>
+<table style="width:100%">
+  <tr>
+    <th>Position</th>
+    <th>Name</th>
+    <th>Won</th>
+      <th>Draw</th>
+      <th>Loss</th>
+      <th>Points</th>
+      <th>GF</th>
+      <th>GA</th>
+      <th>GD</th>
+  </tr>
+    {% for info in rank_info %}
+  <tr>
+    <td>{{ info.position }}</td>
+    <td>{{ info.team.name }}</td>
+    <td>{{ info.won }}</td>
+      <td>{{ info.draw }}</td>
+      <td>{{ info.lost }}</td>
+      <td>{{ info.points }}</td>
+      <td>{{ info.goalsFor }}</td>
+      <td>{{ info.goalsAgainst }}</td>
+      <td>{{ info.goalDifference }}</td>
+  </tr>
+    {% endfor %}
+</table>
+</body>
+{% endblock %}
