@@ -19,4 +19,5 @@ urlpatterns = [
   url(r'^ranking.html$', views.ranking, name='rank'),
   url(r'^contact.html$', views.email_view, name='email'),
   url(r'^success/$', views.success_view, name='email_success'),
+  url(r'^fixtures.html$', views.match_fixtures, name='fixtures'),
 ]

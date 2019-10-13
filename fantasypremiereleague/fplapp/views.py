@@ -3,7 +3,9 @@ from django.views.decorators.cache import cache_page
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from fplapp.ranking import Rank
-from fplapp.forms import ContactForm
+from fplapp.fixtures import Fixtures
+from fplapp.forms import ContactForm, BotForm
+import asyncio
 
 
 def home(request):
@@ -58,7 +60,21 @@ def analysis(request):
 
 
 def bot(request):
-    return render(request, 'fplapp/bot.html')
+    if request.method == 'GET':
+        form = BotForm()
+    else:
+        form = BotForm(request.POST)
+        if form.is_valid():
+            GK_AMT = form.cleaned_data['GK_AMT']
+            DF_AMT = form.cleaned_data['DF_AMT']
+            MD_AMT = form.cleaned_data['MD_AMT']
+            ST_AMT = form.cleaned_data['ST_AMT']
+            try:
+                send_mail(subject, message, from_email, ['test@example.com'])
+            except BadHeaderError:
+                return HttpResponse("Invalid header found")
+            return redirect("success")
+    return render(request, "fplapp/bot.html", {'form': form})
 
 
 def email_view(request):
@@ -80,3 +96,12 @@ def email_view(request):
 
 def success_view(request):
     return HttpResponse('Success! Thank you for your message.')
+
+
+def match_fixtures(request):
+    fixtures = Fixtures()
+    matches = asyncio.run(fixtures.match_fixtures())
+    teams = asyncio.run(fixtures.get_team_short_name())
+    context = {'match_fixtures': matches, 'teams': teams, 'game_weeks': range(1, 39)}
+    # context['loop_times'] = range(1, 38)
+    return render(request, 'fplapp/fixtures.html', context)

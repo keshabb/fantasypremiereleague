@@ -8,8 +8,9 @@ class Rank(object):
         self.headers = {'X-Auth-Token': ''}
 
     def get_team_rank(self):
+
         conn = http_client.HTTPConnection(self.api_host)
-        print("I am making request")
         conn.request('GET', '/v2/competitions/PL/standings', None, self.headers)
         response = json.loads(conn.getresponse().read().decode())
+        print(response)
         return response['standings'][0]['table']

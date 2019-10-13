@@ -1,10 +1,8 @@
 {% extends "fplapp/layout.html" %}
 {% block content %}
-<div class="jumbotron">
-  <h2>Fantasy Premiere League</h2>
-</div>
 <body>
-<table style="width:100%">
+<div class="table-container">
+<table class="table table-scroll table-striped table-hover" style="width:100%" border= 1px solid black>
   <tr>
     <th>Position</th>
     <th>Name</th>
@@ -30,5 +28,6 @@
   </tr>
     {% endfor %}
 </table>
+</div>
 </body>
 {% endblock %}

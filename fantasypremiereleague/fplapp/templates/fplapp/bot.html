@@ -1,8 +1,13 @@
+<!-- bot.html -->
 {% extends "fplapp/layout.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-<div class="jumbotron">
-  <h2>Fantasy Premiere League</h2>
-</div>
-<body>
-</body>
+<h1> Bot AI team selection</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy}}
+    <div class="form-actions">
+        <button type="submit">Submit</button>
+    </div>
+</form>
 {% endblock %}

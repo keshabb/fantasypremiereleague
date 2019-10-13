@@ -1,0 +1,8 @@
+FROM mysql:5.7
+MAINTAINER Keshab Budhathoky <kb4it.professional@gmail.com>
+
+RUN apt-get update \
+    && apt-get install -y netcat \
+    && rm -rf /var/lib/opt/lists/*
+
+COPY mysqld.cnf /etc/mysql/mysql.conf.d/
