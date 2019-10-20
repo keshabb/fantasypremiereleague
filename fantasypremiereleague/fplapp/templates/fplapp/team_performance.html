@@ -1,0 +1,68 @@
+{% extends "fplapp/layout.html" %}
+{% load fpl %}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#teams').DataTable();
+        } );
+    </script>
+    <div class="row p-3 mb-2 bg-success text-white border border-primary rounded">
+  <div class="container-fluid col-md-8 title-desc">
+    <h2 class="bd-title">
+      <span>Team Performance</span>
+    </h2>
+    <br>
+  </div>
+</div>
+    <div class="table-container-fluid">
+    <table id="teams" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Win</th>
+                <th>Draw</th>
+                <th>Loss</th>
+                <th>Played</th>
+                <th>Points</th>
+                <th>Position</th>
+                <th>Strength</th>
+                <th>Home Strength</th>
+                <th>Away Strength</th>
+                <th>Home Attack Strength</th>
+                <th>Away Attack Strength</th>
+                <th>Home Defence Strength</th>
+                <th>Away Defence Strength</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for team in teams %}
+            <tr>
+                <td>{{ team.name }}</td>
+                <td>{{ team.win }}</td>
+                <td>{{ team.draw }}</td>
+                <td>{{ team.loss }}</td>
+                <td>{{ team.played }} </td>
+                <td>{{ team.points }} </td>
+                <td>{{ team.position }}</td>
+                <td>{{ team.strength }}</td>
+                <td>{{ team.strength_overall_home }}</td>
+                <td>{{ team.strength_overall_away }}</td>
+                <td>{{ team.strength_attack_home }}</td>
+                <td>{{ team.strength_attack_away }}</td>
+                <td>{{ team.strength_defence_home }}</td>
+                <td>{{ team.strength_defence_away }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</body>
+{% endblock %}
