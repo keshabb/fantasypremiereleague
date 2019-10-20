@@ -1,30 +1,144 @@
 {% extends "fplapp/layout.html" %}
+{% load static %}
 {% block content %}
-<div class="jumbotron">
-  <h2>Fantasy Premiere League</h2>
-</div>
 <body>
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;border:none;}
 .tg td{font-family:Arial, sans-serif;font-size:18px;padding:20px 30px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
 .tg .tg-m7wd{color:#3531ff;text-align:left;vertical-align:top}
+
 </style>
-<table class="tg" align="center">
-  <tr>
-      <td class="tg-m7wd"><a href='fpl/playerperformance.html'>Player Performance</a></td>
-      <td class="tg-m7wd"><a href='fpl/transferinout.html'>Transfer In/Out</a></td>
-      <td class="tg-m7wd"><a href='fpl/topmanagers.html'>Top Managers</a></td>
-  </tr>
-  <tr>
-      <td class="tg-m7wd"><a href='fpl/fixturedifficulty.html'>Fixture Difficulty</a></td>
-      <td class="tg-m7wd"><a href='fpl/ict.html'>ICT Value</a></td>
-      <td class="tg-m7wd"><a href='fpl/analysis.html'>Analysis</a></td>
-  </tr>
-  <tr>
-      <td class="tg-m7wd"><a href='fpl/pricechange.html'>Price Change</a></td>
-      <td class="tg-m7wd"><a href='fpl/injury_suspension.html'>Injury/Suspension</a></td>
-      <td class="tg-m7wd"><a href='fpl/bot.html'> Ask bot for team recommendation</a></td>
-  </tr>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img alt="Card image cap" class="card-img-top" src="{% static 'images/english-premier-league.jpg' %}">
+                <div class="card-body">
+                    <h5 class="card-title">Player Performance</h5>
+                    <a class="btn btn-primary" href="fpl/playerperformance.html">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img alt="Card image cap" class="card-img-top" src="{% static 'images/teams1.jpg' %}">
+                <div class="card-body">
+                    <h5 class="card-title">Team Performance</h5>
+                    <a class="btn btn-primary" href="fpl/teamperformance.html">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img alt="Card image cap" class="card-img-top" src="{% static 'images/fplimage1.jpg' %}">
+                <div class="card-body">
+                    <h5 class="card-title">Top Managers</h5>
+                    <a class="btn btn-primary" href="fpl/topmanagers.html">View</a>
+                </div>
+            </div>
+            </div>
+            </div>
+            <br>
+            <br>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card text-center" style="width: 18rem;">
+                        <img alt="Card image cap" class="card-img-top" src="{% static 'images/image7.png' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">Transfer In/Out</h5>
+                            <a class="btn btn-primary" href="fpl/transfers.html">View</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card text-center" style="width: 18rem;">
+                        <img alt="Card image cap" class="card-img-top" src="{% static 'images/image9.jpeg' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">Price Change</h5>
+                            <a class="btn btn-primary" href="fpl/pricechange.html">View</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card text-center" style="width: 18rem;">
+                        <img alt="Card image cap" class="card-img-top" src="{% static 'images/image4.jpg' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">Injury/Suspension</h5>
+                            <a class="btn btn-primary" href="fpl/injury_suspension.html">View</a>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card text-center" style="width: 18rem;">
+                                <img alt="Card image cap" class="card-img-top" src="{% static 'images/image5.jpeg' %}">
+                                <div class="card-body">
+                                    <h5 class="card-title">Fixture Difficulty</h5>
+                                    <a class="btn btn-primary" href="fpl/fixturedifficulty.html">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="card text-center" style="width: 18rem;">
+                                <img alt="Card image cap" class="card-img-top" src="{% static 'images/image6.jpeg' %}">
+                                <div class="card-body">
+                                    <h5 class="card-title">FPL GW Stats</h5>
+                                    <a class="btn btn-primary" href="fpl/fplstats.html">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="card text-center" style="width: 18rem;">
+                                <img alt="Card image cap" class="card-img-top" src="{% static 'images/image7.png' %}">
+                                <div class="card-body">
+                                    <h5 class="card-title">FPL Analysis</h5>
+                                    <a class="btn btn-primary" href="fpl/analysis.html">View</a>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="card text-center" style="width: 18rem;">
+                                        <img alt="Card image cap" class="card-img-top" src="{% static 'images/fplimage1.jpg' %}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Ask EPL Ramilo Robot for team</h5>
+                                            <a class="btn btn-primary" href="fpl/bot.html">View</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <!-- <table class="tg" align="center">
+                              <tr>
+                                  <td class="tg-m7wd"><a href='fpl/playerperformance.html'>Player Performance</a></td>
+                                  <td class="tg-m7wd"><a href='fpl/teamperformance.html'>Team Performance</a></td>
+                                  <td class="tg-m7wd"><a href='fpl/topmanagers.html'>Top Managers</a></td>
+                              </tr>
+                              <tr>
+                                  <td class="tg-m7wd"><a href='fpl/transfers.html'>Transfer In/Out</a></td>
+                                  <td class="tg-m7wd"><a href='fpl/pricechange.html'>Price Change</a></td>
+                                  <td class="tg-m7wd"><a href='fpl/injury_suspension.html'>Injury/Suspension</a></td>
+                              </tr>
+                              <tr>
+                                  <td class="tg-m7wd"><a href='fpl/fixturedifficulty.html'>Fixture Difficulty</a></td>
+                                  <td class="tg-m7wd"><a href='fpl/fplstats.html'>FPL GW Stats</a></td>
+                                  <td class="tg-m7wd"><a href='fpl/analysis.html'>FPL Analysis</a></td>
+                              </tr>
+                                <tr>
+                                    <td class="tg-m7wd"><a href='fpl/bot.html'> Ask EPL Ramilo Robot for team</a></td>
+                                </tr>
+                            </table> -->
 </body>
 {% endblock %}

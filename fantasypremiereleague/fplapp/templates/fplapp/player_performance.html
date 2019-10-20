@@ -1,8 +1,72 @@
 {% extends "fplapp/layout.html" %}
+{% load fpl %}
 {% block content %}
-<div class="jumbotron">
-  <h2>Fantasy Premiere League</h2>
-</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
 <body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#players').DataTable();
+        } );
+    </script>
+    <div class="container">
+    <div class="row p-3 mb-2 bg-success text-white border border-primary rounded">
+  <div class="container-fluid col-md-8 title-desc">
+    <h2 class="bd-title">
+      <span>Players Performance</span>
+    </h2>
+    <br>
+  </div>
+    </div>
+</div>
+    <div class="container">
+        <div class="row">
+    <div class="table-container-fluid">
+    <table id="players" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Pts</th>
+                <th>Bonus</th>
+                <th>Cost</th>
+                <th>Pts/Game</th>
+                <th>Goals</th>
+                <th>Assists</th>
+                <th>BPS</th>
+                <th>Influence</th>
+                <th>Creativity</th>
+                <th>Threat</th>
+                <th>ICT Value</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for player in players %}
+            <tr>
+                <td>{{ player.first_name }} {{ player.second_name }}</td>
+                <td>{{ player.element_type|position }}</td>
+                <td>{{ player.total_points }}</td>
+                <td>{{ player.bonus }}</td>
+                <td>{{ player.now_cost|price }} </td>
+                <td>{{ player.points_per_game }}</td>
+                <td>{{ player.goals_scored }}</td>
+                <td>{{ player.assists }}</td>
+                <td>{{ player.bps }}</td>
+                <td>{{ player.influence }}</td>
+                <td>{{ player.creativity }}</td>
+                <td>{{ player.threat }}</td>
+                <td>{{ player.ict_index }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+        </div>
 </body>
 {% endblock %}

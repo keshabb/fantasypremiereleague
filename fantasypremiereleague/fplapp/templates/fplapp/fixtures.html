@@ -1,0 +1,31 @@
+{% extends "fplapp/layout.html" %}
+{% load fpl %}
+{% block content %}
+<body>
+<div class="container">
+<div class="row p-3 mb-2 bg-success text-white border border-primary rounded">
+  <div class="container-fluid col-md-8 title-desc">
+    <h2 class="bd-title">
+      <span> EPL Team Fixtures</span>
+    </h2>
+    <br>
+  </div>
+</div>
+</div>
+<div class="table-container-fluid">
+<table class="table table-scroll table-striped table-hover" style="width:100%" border= 1px solid black>
+  {% for game_week in game_weeks %}
+    {% gameweek_filter game_week match_fixtures as gameweek_list %}
+   <tr>
+       <td><strong>GW {{ game_week }}</strong></td>
+      {% for game in gameweek_list %}
+           {% team_short_name game.team_h teams as home_team %}
+           {% team_short_name game.team_a teams as away_team %}
+        <th style="font-size: 70%">{{ home_team }}(H) vs {{ away_team }}</th>
+     {% endfor %}
+  </tr>
+    {% endfor %}
+</table>
+</div>
+</body>
+{% endblock %}

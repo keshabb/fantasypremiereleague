@@ -1,0 +1,10 @@
+/* This class is added to the span wrapping the
+   header text using the "onRenderHeader" option */
+
+.roundedCorners {
+  border: #777 1px solid;
+  padding: 0 10px;
+  border-radius: 1em;
+  -moz-border-radius: 1em;
+  -webkit-border-radius: 1em;
+}

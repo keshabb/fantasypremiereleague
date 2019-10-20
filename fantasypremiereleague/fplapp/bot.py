@@ -1,0 +1,2 @@
+class BotAI(object):
+    pass
