@@ -1,35 +1,11 @@
 version: "3.7"
 services:
-  db-mysql:
-    build:
-      context: ./
-      dockerfile: DBDockerfile
-    ports:
-      - "3307:3306"
-    container_name: mysqldb
-    volumes:
-      - "mysqldata:/var/lib/mysql"
-#      - type: volume
-#        source: mysqldata
-#        target: /var/lib/mysql/
-#      - type: bind
-#        source: ./mysqld.cnf
-#        target: /etc/mysql/mysql.conf.d/
-    environment:
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_ROOT_PASSWORD: 'ab12cd34'
-      MYSQL_USER: 'fpluser'
-      MYSQL_PASSWORD: 'ab12cd34'
-      MYSQL_DATABASE: 'fpldb'
   fpl:
     build: .
-    command: bash -c "sleep 20 && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     container_name: fplapp
+    expose:
+      - "8080"
     ports:
       - "8000:8000"
-    depends_on:
-      - db-mysql
-    links:
-      - db-mysql:fpldb
-volumes:
-  mysqldata:
+    network_mode: "bridge"
