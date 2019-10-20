@@ -4,6 +4,12 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from fplapp.ranking import Rank
 from fplapp.fixtures import Fixtures
+from fplapp.playerperformance import PlayerPerformance
+from fplapp.teamperformance import TeamPerformance
+from fplapp.transfer import Transfer
+from fplapp.price_change import PriceChange
+from fplapp.injury_suspension import InjurySuspension
+from fplapp.fplstats import FPLStats
 from fplapp.forms import ContactForm, BotForm
 import asyncio
 
@@ -22,7 +28,19 @@ def ranking(request):
 
 @cache_page(60 * 10)
 def player_performance(request):
-    return render(request, 'fplapp/player_performance.html')
+    player_obj = PlayerPerformance()
+    players_info = asyncio.run(player_obj.get_players_info())
+    context = {'players': players_info}
+    return render(request, 'fplapp/player_performance.html', context)
+
+
+@cache_page(60 * 10)
+def team_performance(request):
+    team_obj = TeamPerformance()
+    teams_info = asyncio.run(team_obj.get_teams_info())
+    context = {'teams': teams_info}
+    print(teams_info)
+    return render(request, 'fplapp/team_performance.html', context)
 
 
 @cache_page(60 * 10)
@@ -37,17 +55,44 @@ def ict(request):
 
 @cache_page(60 * 10)
 def injury_suspension(request):
-    return render(request, 'fplapp/injury_suspension.html')
+    player_obj = InjurySuspension()
+    team_obj = Fixtures()
+    players_info = asyncio.run(player_obj.get_players_info())
+    teams_info = asyncio.run(team_obj.get_team_short_name())
+    injured_suspended_players_info = list(filter(lambda player_info: player_info['status'] not in ('a', 'n', 'u'), players_info))
+    context = {'players_info': injured_suspended_players_info, 'teams_info': teams_info}
+    return render(request, 'fplapp/injury_suspension.html', context)
 
 
 @cache_page(60 * 10)
 def price_change(request):
-    return render(request, 'fplapp/price_change.html')
+    player_obj = PriceChange()
+    team_obj = Fixtures()
+    players_info = asyncio.run(player_obj.get_players_info())
+    teams_info = asyncio.run(team_obj.get_team_short_name())
+    context = {'players_info': players_info, 'teams_info': teams_info}
+    return render(request, 'fplapp/pricechange.html', context)
 
 
 @cache_page(60 * 10)
 def transfer_in_out(request):
-    return render(request, 'fplapp/transfer_in_out.html')
+    player_obj = Transfer()
+    team_obj = Fixtures()
+    players_info = asyncio.run(player_obj.get_players_info())
+    teams_info = asyncio.run(team_obj.get_team_short_name())
+    context = {'players_info': players_info, 'teams_info': teams_info}
+    return render(request, 'fplapp/transfers.html', context)
+
+
+@cache_page(60 * 10)
+def fpl_stats(request):
+    events_obj = FPLStats()
+    players_obj = PlayerPerformance()
+    gw_events_info = events_obj.get_events_info()
+    gw_events_info = list(filter(lambda gw_event_info: gw_event_info['finished'] == True, gw_events_info))
+    players_info = asyncio.run(players_obj.get_players_info())
+    context = {'gw_events_info': gw_events_info, 'players_info': players_info}
+    return render(request, 'fplapp/fplstats.html', context)
 
 
 @cache_page(60 * 10)
@@ -105,3 +150,7 @@ def match_fixtures(request):
     context = {'match_fixtures': matches, 'teams': teams, 'game_weeks': range(1, 39)}
     # context['loop_times'] = range(1, 38)
     return render(request, 'fplapp/fixtures.html', context)
+
+
+def test(request):
+    return render(request, 'fplapp/test.html')
