@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <h1> Contact Us</h1>
+<div class="col-sm-5">
 <form method="post">
     {% csrf_token %}
     {{ form|crispy }}
@@ -10,4 +11,5 @@
         <button type="submit">Send</button>
     </div>
 </form>
+</div>
 {% endblock %}
