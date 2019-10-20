@@ -1,6 +1,5 @@
 from fpl import FPL
 import aiohttp
-import asyncio
 
 
 class Fixtures(object):
@@ -18,5 +17,4 @@ class Fixtures(object):
             teams = {}
             for team in result:
                 teams.update({team['id']: team['short_name']})
-            print(teams)
         return teams
