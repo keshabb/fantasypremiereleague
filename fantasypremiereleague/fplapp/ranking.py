@@ -12,5 +12,4 @@ class Rank(object):
         conn = http_client.HTTPConnection(self.api_host)
         conn.request('GET', '/v2/competitions/PL/standings', None, self.headers)
         response = json.loads(conn.getresponse().read().decode())
-        print(response)
         return response['standings'][0]['table']
