@@ -17,11 +17,11 @@
   {% for game_week in game_weeks %}
     {% gameweek_filter game_week match_fixtures as gameweek_list %}
    <tr>
-       <td><strong>GW {{ game_week }}</strong></td>
+       <td bgcolor="#3e74c9">GW {{ game_week }}</td>
       {% for game in gameweek_list %}
            {% team_short_name game.team_h teams as home_team %}
            {% team_short_name game.team_a teams as away_team %}
-        <th style="font-size: 70%">{{ home_team }}(H) vs {{ away_team }}</th>
+        <th style="font-size: 70%" bgcolor="#6056a6">{{ home_team }}(H) vs {{ away_team }}</th>
      {% endfor %}
   </tr>
     {% endfor %}

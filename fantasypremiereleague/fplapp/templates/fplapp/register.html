@@ -1,0 +1,16 @@
+{% extends "fplapp/layout.html" %}
+{% load fpl %}
+{% load crispy_forms_tags %}
+<br>
+{% block content %}
+<center>
+<div class="col-sm-5">
+<form method="POST">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <button class="btn" style="background-color:green; color:red" type="submit">Register</button>
+</form>
+</div>
+</center>
+If you already have an account, <a href="/fpl/login"><strong>Login</strong></a> instead.
+{% endblock %}

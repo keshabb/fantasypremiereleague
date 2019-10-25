@@ -13,13 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.conf.urls import url, include
 from fplapp import views
 
+
 urlpatterns = [
     # Invoke home view in fplapp app home by default
     url(r'^$', views.home, name='home'),
+#    url(r'accounts/', include('django.contrib.auth.urls')),
     url(r'^fpl/', include('fplapp.urls', namespace='fplapp')),
     url(r'^admin/', admin.site.urls),
 ]

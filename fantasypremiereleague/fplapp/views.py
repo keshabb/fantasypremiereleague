@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_page
 from django.core.mail import send_mail, BadHeaderError
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from fplapp.ranking import Rank
 from fplapp.fixtures import Fixtures
@@ -18,6 +21,47 @@ def home(request):
     return render(request, 'fplapp/home.html')
 
 
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f"New Account Created: {username}")
+            login(request, user)
+            return redirect("home")
+        else:
+            for msg in form.error_messages:
+                messages.error(request, f"{msg}:{form.error_messages[msg]}")
+    form = UserCreationForm
+    return render(request, "fplapp/register.html", context={"form": form})
+
+
+def login_request(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}")
+                return redirect("home")
+            else:
+                messages.error(request, "Invalid username or password")
+        else:
+            messages.error(request, "Invalid username or password")
+    form = AuthenticationForm()
+    return render(request, "fplapp/login.html", {"form": form})
+
+
+def logout_request(request):
+    logout(request)
+    messages.info(request, "Logged out successfully")
+    return redirect("home")
+
+
 @cache_page(60 * 10)
 def ranking(request):
     rank = Rank()
@@ -29,8 +73,10 @@ def ranking(request):
 @cache_page(60 * 10)
 def player_performance(request):
     player_obj = PlayerPerformance()
+    team_obj = Fixtures()
     players_info = asyncio.run(player_obj.get_players_info())
-    context = {'players': players_info}
+    teams_info = asyncio.run(team_obj.get_team_short_name())
+    context = {'players': players_info, 'teams_info': teams_info}
     return render(request, 'fplapp/player_performance.html', context)
 
 
@@ -89,7 +135,7 @@ def fpl_stats(request):
     events_obj = FPLStats()
     players_obj = PlayerPerformance()
     gw_events_info = events_obj.get_events_info()
-    gw_events_info = list(filter(lambda gw_event_info: gw_event_info['finished'] == True, gw_events_info))
+    gw_events_info = list(filter(lambda gw_event_info: gw_event_info['finished'] is True, gw_events_info))
     players_info = asyncio.run(players_obj.get_players_info())
     context = {'gw_events_info': gw_events_info, 'players_info': players_info}
     return render(request, 'fplapp/fplstats.html', context)
@@ -114,11 +160,6 @@ def bot(request):
             DF_AMT = form.cleaned_data['DF_AMT']
             MD_AMT = form.cleaned_data['MD_AMT']
             ST_AMT = form.cleaned_data['ST_AMT']
-            try:
-                send_mail(subject, message, from_email, ['test@example.com'])
-            except BadHeaderError:
-                return HttpResponse("Invalid header found")
-            return redirect("success")
     return render(request, "fplapp/bot.html", {'form': form})
 
 
@@ -150,6 +191,10 @@ def match_fixtures(request):
     context = {'match_fixtures': matches, 'teams': teams, 'game_weeks': range(1, 39)}
     # context['loop_times'] = range(1, 38)
     return render(request, 'fplapp/fixtures.html', context)
+
+
+def winners(request):
+    return render(request, 'fplapp/winners.html')
 
 
 def test(request):
