@@ -13,7 +13,9 @@ from fplapp.transfer import Transfer
 from fplapp.price_change import PriceChange
 from fplapp.injury_suspension import InjurySuspension
 from fplapp.fplstats import FPLStats
+from fplapp.topmanagers import TopManagers
 from fplapp.forms import ContactForm, BotForm
+from fplapp.bot import BotAI
 import asyncio
 
 
@@ -141,9 +143,12 @@ def fpl_stats(request):
     return render(request, 'fplapp/fplstats.html', context)
 
 
-@cache_page(60 * 10)
+#@cache_page(60 * 10)
 def top_managers(request):
-    return render(request, 'fplapp/top_managers.html')
+    mgr_obj = TopManagers()
+    top_mgrs = asyncio.run(mgr_obj.get_topmanagers())
+    context = {'top_mgrs': top_mgrs}
+    return render(request, 'fplapp/topmanagers.html', context)
 
 
 def analysis(request):
@@ -153,6 +158,7 @@ def analysis(request):
 def bot(request):
     if request.method == 'GET':
         form = BotForm()
+        return render(request, "fplapp/bot.html", {'form': form})
     else:
         form = BotForm(request.POST)
         if form.is_valid():
@@ -160,7 +166,18 @@ def bot(request):
             DF_AMT = form.cleaned_data['DF_AMT']
             MD_AMT = form.cleaned_data['MD_AMT']
             ST_AMT = form.cleaned_data['ST_AMT']
-    return render(request, "fplapp/bot.html", {'form': form})
+            bot_obj = BotAI()
+            # resp = asyncio.run(bot_obj.get_available_players())
+            team_selection = bot_obj.build_team_by_roi()
+            #for r in resp:
+            #   if r['points_per_game'] != '0.0' and r['status'] in ('a', 'i') and r[
+            #        'web_name'] in ('Boly', 'Silva') and r['chance_of_playing_this_round'] == 100:
+            #        print(r['web_name'], r['now_cost'], r['total_points'], r['bonus'],
+            #              r['influence'], r['creativity'], r['threat'], r['ict_index'],
+            #              r['status'])
+            print(team_selection)
+        # return HttpResponse(team_selection)
+        return render(request,"fplapp/team_selection.html", context={'team_selection': team_selection})
 
 
 def email_view(request):
