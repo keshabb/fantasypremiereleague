@@ -1,0 +1,53 @@
+{% extends "fplapp/layout.html" %}
+{% load static %}
+{% block content %}
+<body>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border:none;}
+.tg td{font-family:Arial, sans-serif;font-size:18px;padding:20px 30px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+.tg .tg-m7wd{color:#3531ff;text-align:left;vertical-align:top}
+
+</style>
+<div class="container">
+<div class="row p-3 mb-2 bg-success text-white border border-primary rounded">
+  <div class="container-fluid col-md-8 title-desc">
+    <h2 class="bd-title">
+      <span> Welcome to EPLRamilo</span>
+    </h2>
+    <br>
+  </div>
+</div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img alt="Card image cap" class="card-img-top" src="{% static 'images/english-premier-league.jpg' %}">
+                <div class="card-body">
+                    <h5 class="card-title">Player Stats</h5>
+                    <a class="btn btn-primary" href="fpl/playerstats.html">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img alt="Card image cap" class="card-img-top" src="{% static 'images/teams1.jpg' %}">
+                <div class="card-body">
+                    <h5 class="card-title">Team Stats</h5>
+                    <a class="btn btn-primary" href="fpl/teamstats.html">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img alt="Card image cap" class="card-img-top" src="{% static 'images/fplimage1.jpg' %}">
+                <div class="card-body">
+                    <h5 class="card-title">Top Fantasy Managers Stats</h5>
+                    <a class="btn btn-primary" href="fpl/topmanagersstats.html">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

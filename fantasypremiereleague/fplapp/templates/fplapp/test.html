@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+
+    <title>Hello, world!</title>
+</head>
+<body style="padding-top: 5px;">
+<header class="site-header">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="nav-wrapper container">
+        <a class="navbar-brand" href="/">EPL Ramilo</a>
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                class="btn navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/fpl/ranking.html">Ranking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/fpl/fixtures.html">Fixtures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/fpl/winners.html">Winners</a>
+                </li>
+                <!-- <li class="nav-item">
+                       <a class="nav-link" href="/fpl/history.html">History</a>
+                     </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/fpl/contact.html">Contact us</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/fpl/home.html">{{ user.username }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/fpl/logout.html">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/fpl/register.html">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/fpl/login.html">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+</header>
+<main role="main" class="container">
+<div class="row">
+    <div class="col-md-8">
+    {% block content %}
+    {% endblock %}
+    </div>
+    <div class="col-md-4">
+        <div class="content-section">
+            <h3>Our Sidebar</h3>
+            <p class='text-muted'>You can put any information here you'd like.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Latest Posts</li>
+                <li class="list-group-item list-group-item-light">Announcements</li>
+                <li class="list-group-item list-group-item-light">Calendars</li>
+                <li class="list-group-item list-group-item-light">etc</li>
+              </ul>
+            </p>
+        </div>
+    </div>
+    <footer class="page-footer font-small teal pt-4" id="footer">
+        <div class="container">
+            <div class="row">
+                </div>
+                <p id="copyright">
+                    Questions or comments? Email
+                    <a href="mailto:kb4it.professional@gmail.com">kb4it.professional@gmail.com</a>
+                    <br>
+                    File a bug against
+                    <a href="https://github.com/keshabb/fantasypremiereleague/issues">Release Engineering: EPL
+                        Ramilo</a>
+                </p>
+            </div>
+        </div>
+</div>
+    </footer>
+</div>
+</main>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
