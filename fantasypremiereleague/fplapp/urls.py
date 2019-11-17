@@ -27,4 +27,6 @@ urlpatterns = [
   url(r'^logout.html$', views.logout_request, name='logout_request'),
   url(r'^winners.html$', views.winners, name='winners'),
   url(r'^test.html$', views.test, name='test'),
+  url(r'^$', views.IndexView.as_view(), name='index'),
+  url(r'^teamstats/$', views.PlotView.as_view(), name='plot'),
 ]

@@ -2,7 +2,7 @@ from fpl import FPL
 import aiohttp
 
 
-class PlayerPerformance(object):
+class PlayerPerformance:
 
     async def get_players_info(self, player_ids=None):
         async with aiohttp.ClientSession() as session:

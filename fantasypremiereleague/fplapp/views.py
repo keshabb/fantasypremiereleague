@@ -4,7 +4,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from fplapp.ranking import Rank
 from fplapp.fixtures import Fixtures
 from fplapp.playerperformance import PlayerPerformance
@@ -17,6 +17,8 @@ from fplapp.topmanagers import TopManagers
 from fplapp.forms import ContactForm, BotForm
 from fplapp.bot import BotAI
 import asyncio
+from . import plots
+from django.views.generic import TemplateView
 
 
 def home(request):
@@ -216,3 +218,17 @@ def winners(request):
 
 def test(request):
     return render(request, 'fplapp/test.html')
+
+
+class IndexView(TemplateView):
+    template_name = "fplapp/index.html"
+
+
+class PlotView(TemplateView):
+    template_name = "fplapp/teamstats.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PlotView, self).get_context_data(**kwargs)
+        context['plot'] = plots.team_strength_plot()
+        return context
