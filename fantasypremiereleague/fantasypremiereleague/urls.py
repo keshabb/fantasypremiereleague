@@ -23,7 +23,6 @@ urlpatterns = [
     # Invoke home view in fplapp app home by default
     url(r'^$', views.home, name='home'),
 #    url(r'accounts/', include('django.contrib.auth.urls')),
-#    url(r'^django_plotly_dash/', include('django_plotly_dash.urls', namespace='django_plotly_dash')),
     url(r'^fpl/', include('fplapp.urls', namespace='fplapp')),
     url(r'^admin/', admin.site.urls),
 ]
