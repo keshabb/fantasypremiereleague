@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_page
 from django.core.mail import send_mail, BadHeaderError
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
@@ -14,7 +14,7 @@ from fplapp.price_change import PriceChange
 from fplapp.injury_suspension import InjurySuspension
 from fplapp.fplstats import FPLStats
 from fplapp.topmanagers import TopManagers
-from fplapp.forms import ContactForm, BotForm
+from fplapp.forms import ContactForm, BotForm, UserRegistrationForm
 from fplapp.bot import BotAI
 import asyncio
 from . import plots
@@ -27,7 +27,7 @@ def home(request):
 
 def register(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
@@ -37,7 +37,7 @@ def register(request):
         else:
             for msg in form.error_messages:
                 messages.error(request, f"{msg}:{form.error_messages[msg]}")
-    form = UserCreationForm
+    form = UserRegistrationForm
     return render(request, "fplapp/register.html", context={"form": form})
 
 
