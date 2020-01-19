@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'fplapp.apps.FplappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'django_plotly_dash.apps.DjangoPlotlyDashConfig',
+    'fplapp.apps.FplappConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -90,7 +91,7 @@ DATABASES = {
 #        'ENGINE': 'django.db.backends.mysql',
 #        'NAME': 'fpldb',
 #        'USER': 'fpluser',
-#        'PASSWORD': 'ab12cd34',
+#        'PASSWORD': '',
 #        'HOST': 'db-mysql',
 #        'PORT': 3306,
 #    }
@@ -102,7 +103,7 @@ DATABASES = {
 #        'ENGINE': 'django.db.backends.mysql',
 #        'NAME': 'fpldb',
 #        'USER': 'fpl_user',
-#        'PASSWORD': 'ab12cd34',
+#        'PASSWORD': '',
 #        'HOST': '192.168.1.161',
 #        'PORT': 3306,
 #    }
