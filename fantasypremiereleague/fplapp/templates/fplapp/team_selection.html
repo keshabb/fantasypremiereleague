@@ -1,0 +1,61 @@
+{% extends "fplapp/layout.html" %}
+{% block content %}
+<body>
+<div class="container">
+<div class="row p-3 mb-2 bg-success text-white border border-primary rounded">
+  <div class="container-fluid col-md-8 title-desc">
+    <h2 class="bd-title">
+      <span>Team Selection</span>
+    </h2>
+    <br>
+  </div>
+</div>
+</div>
+<div class="container">
+<div class="row mt-4 justify-content-around">
+    {% for player in team_selection %}
+     {% if player.2 == 1 %}
+    <div class="col-3">
+  <p align="center">{{ player.0 }}</p>
+        <p align="center">{{ player.1 }}</p>
+      <p align="center">{{ player.3 }}</p>
+      </div>
+     {% endif %}
+    {% endfor %}
+  </div>
+<div class="row mt-4 justify-content-around">
+    {% for player in team_selection %}
+     {% if player.2 == 2 %}
+    <div class="col">
+      <p align="center">{{ player.0 }}</p>
+      <p align="center">{{ player.1 }}</p>
+      <p align="center">{{ player.3 }}</p>
+      </div>
+     {% endif %}
+    {% endfor %}
+  </div>
+<div class="row mt-4 justify-content-around">
+    {% for player in team_selection %}
+     {% if player.2 == 3 %}
+    <div class="col">
+      <p align="center">{{ player.0 }}</p>
+      <p align="center">{{ player.1 }}</p>
+      <p align="center">{{ player.3 }}</p>
+      </div>
+     {% endif %}
+    {% endfor %}
+  </div>
+<div class="row mt-4 justify-content-around">
+    {% for player in team_selection %}
+     {% if player.2 == 4 %}
+    <div class="col-3">
+      <p align="center">{{ player.0 }}</p>
+      <p align="center">{{ player.1 }}</p>
+      <p align="center">{{ player.3 }}</p>
+      </div>
+     {% endif %}
+    {% endfor %}
+  </div>
+</div>
+</body>
+{% endblock %}

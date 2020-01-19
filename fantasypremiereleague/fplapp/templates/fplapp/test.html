@@ -12,14 +12,7 @@
     <title>Hello, world!</title>
 </head>
 <body style="padding-top: 5px;">
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<header class="site-header">
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="nav-wrapper container">
         <a class="navbar-brand" href="/">EPL Ramilo</a>
@@ -68,15 +61,29 @@
         </div>
     </div>
 </nav>
-<div class="container main-container">
-    <br>
+</header>
+<main role="main" class="container">
+<div class="row">
+    <div class="col-md-8">
     {% block content %}
     {% endblock %}
+    </div>
+    <div class="col-md-4">
+        <div class="content-section">
+            <h3>Our Sidebar</h3>
+            <p class='text-muted'>You can put any information here you'd like.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Latest Posts</li>
+                <li class="list-group-item list-group-item-light">Announcements</li>
+                <li class="list-group-item list-group-item-light">Calendars</li>
+                <li class="list-group-item list-group-item-light">etc</li>
+              </ul>
+            </p>
+        </div>
+    </div>
     <footer class="page-footer font-small teal pt-4" id="footer">
         <div class="container">
             <div class="row">
-                <div class="container-fluid" style="background-color:#38003C;color:white">
-                    <p class="text-center">@EPL Ramilo Nepal 2019</p>
                 </div>
                 <p id="copyright">
                     Questions or comments? Email
@@ -84,11 +91,21 @@
                     <br>
                     File a bug against
                     <a href="https://github.com/keshabb/fantasypremiereleague/issues">Release Engineering: EPL
-                        Ramilo Team</a>
+                        Ramilo</a>
                 </p>
             </div>
         </div>
+</div>
     </footer>
 </div>
+</main>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

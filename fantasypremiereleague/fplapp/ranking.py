@@ -1,11 +1,12 @@
 import http.client as http_client
+from django.conf import settings
 import json
 
 
 class Rank(object):
     def __init__(self):
         self.api_host = 'api.football-data.org'
-        self.headers = {'X-Auth-Token': ''}
+        self.headers = {'X-Auth-Token': settings.API_KEY }
 
     def get_team_rank(self):
 

@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'fplapp',
+    'django_plotly_dash.apps.DjangoPlotlyDashConfig',
+    'fplapp.apps.FplappConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -77,12 +78,12 @@ WSGI_APPLICATION = 'fantasypremiereleague.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 #Container DB
 #DATABASES = {
@@ -97,16 +98,16 @@ WSGI_APPLICATION = 'fantasypremiereleague.wsgi.application'
 #}
 
 # HOST DB
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fpldb',
-        'USER': 'fpl_user',
-        'PASSWORD': '',
-        'HOST': '192.168.1.161',
-        'PORT': 3306,
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'fpldb',
+#        'USER': 'fpl_user',
+#        'PASSWORD': '',
+#        'HOST': '192.168.1.161',
+#        'PORT': 3306,
+#    }
+#}
 
 
 # Password validation
@@ -146,3 +147,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+INTERNAL_IPS = ['127.0.0.1']
+
+# FPL credentials
+USERNAME = ''
+PASSWORD = ''
+
+# fooball-data api key
+
+API_KEY = ''

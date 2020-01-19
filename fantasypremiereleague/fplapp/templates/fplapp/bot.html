@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <h1> Bot AI team selection</h1>
-<div class="col-sm-2">
+<div class="col-sm-3">
 <form method="post">
     {% csrf_token %}
     {{ form|crispy}}

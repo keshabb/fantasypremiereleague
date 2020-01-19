@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_page
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from fplapp.ranking import Rank
 from fplapp.fixtures import Fixtures
 from fplapp.playerperformance import PlayerPerformance
@@ -10,12 +13,57 @@ from fplapp.transfer import Transfer
 from fplapp.price_change import PriceChange
 from fplapp.injury_suspension import InjurySuspension
 from fplapp.fplstats import FPLStats
-from fplapp.forms import ContactForm, BotForm
+from fplapp.topmanagers import TopManagers
+from fplapp.forms import ContactForm, BotForm, UserRegistrationForm
+from fplapp.bot import BotAI
 import asyncio
+from . import plots
+from django.views.generic import TemplateView
 
 
 def home(request):
     return render(request, 'fplapp/home.html')
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f"New Account Created: {username}")
+            login(request, user)
+            return redirect("home")
+        else:
+            for msg in form.error_messages:
+                messages.error(request, f"{msg}:{form.error_messages[msg]}")
+    form = UserRegistrationForm
+    return render(request, "fplapp/register.html", context={"form": form})
+
+
+def login_request(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}")
+                return redirect("home")
+            else:
+                messages.error(request, "Invalid username or password")
+        else:
+            messages.error(request, "Invalid username or password")
+    form = AuthenticationForm()
+    return render(request, "fplapp/login.html", {"form": form})
+
+
+def logout_request(request):
+    logout(request)
+    messages.info(request, "Logged out successfully")
+    return redirect("home")
 
 
 @cache_page(60 * 10)
@@ -29,8 +77,10 @@ def ranking(request):
 @cache_page(60 * 10)
 def player_performance(request):
     player_obj = PlayerPerformance()
+    team_obj = Fixtures()
     players_info = asyncio.run(player_obj.get_players_info())
-    context = {'players': players_info}
+    teams_info = asyncio.run(team_obj.get_team_short_name())
+    context = {'players': players_info, 'teams_info': teams_info}
     return render(request, 'fplapp/player_performance.html', context)
 
 
@@ -89,15 +139,18 @@ def fpl_stats(request):
     events_obj = FPLStats()
     players_obj = PlayerPerformance()
     gw_events_info = events_obj.get_events_info()
-    gw_events_info = list(filter(lambda gw_event_info: gw_event_info['finished'] == True, gw_events_info))
+    gw_events_info = list(filter(lambda gw_event_info: gw_event_info['finished'] is True, gw_events_info))
     players_info = asyncio.run(players_obj.get_players_info())
     context = {'gw_events_info': gw_events_info, 'players_info': players_info}
     return render(request, 'fplapp/fplstats.html', context)
 
 
-@cache_page(60 * 10)
+#@cache_page(60 * 10)
 def top_managers(request):
-    return render(request, 'fplapp/top_managers.html')
+    mgr_obj = TopManagers()
+    top_mgrs = asyncio.run(mgr_obj.get_topmanagers())
+    context = {'top_mgrs': top_mgrs}
+    return render(request, 'fplapp/topmanagers.html', context)
 
 
 def analysis(request):
@@ -107,6 +160,7 @@ def analysis(request):
 def bot(request):
     if request.method == 'GET':
         form = BotForm()
+        return render(request, "fplapp/bot.html", {'form': form})
     else:
         form = BotForm(request.POST)
         if form.is_valid():
@@ -114,12 +168,18 @@ def bot(request):
             DF_AMT = form.cleaned_data['DF_AMT']
             MD_AMT = form.cleaned_data['MD_AMT']
             ST_AMT = form.cleaned_data['ST_AMT']
-            try:
-                send_mail(subject, message, from_email, ['test@example.com'])
-            except BadHeaderError:
-                return HttpResponse("Invalid header found")
-            return redirect("success")
-    return render(request, "fplapp/bot.html", {'form': form})
+            bot_obj = BotAI()
+            # resp = asyncio.run(bot_obj.get_available_players())
+            team_selection = bot_obj.build_team_by_roi()
+            #for r in resp:
+            #   if r['points_per_game'] != '0.0' and r['status'] in ('a', 'i') and r[
+            #        'web_name'] in ('Boly', 'Silva') and r['chance_of_playing_this_round'] == 100:
+            #        print(r['web_name'], r['now_cost'], r['total_points'], r['bonus'],
+            #              r['influence'], r['creativity'], r['threat'], r['ict_index'],
+            #              r['status'])
+            print(team_selection)
+        # return HttpResponse(team_selection)
+        return render(request,"fplapp/team_selection.html", context={'team_selection': team_selection})
 
 
 def email_view(request):
@@ -152,5 +212,23 @@ def match_fixtures(request):
     return render(request, 'fplapp/fixtures.html', context)
 
 
+def winners(request):
+    return render(request, 'fplapp/winners.html')
+
+
 def test(request):
     return render(request, 'fplapp/test.html')
+
+
+class IndexView(TemplateView):
+    template_name = "fplapp/index.html"
+
+
+class PlotView(TemplateView):
+    template_name = "fplapp/teamstats.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PlotView, self).get_context_data(**kwargs)
+        context['plot'] = plots.team_strength_plot()
+        return context

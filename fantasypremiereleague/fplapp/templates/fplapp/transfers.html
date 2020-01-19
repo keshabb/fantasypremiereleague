@@ -11,7 +11,9 @@
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#transfers').DataTable();
+            $('#transfers').DataTable({
+            "order": [[ 4, "desc" ]]
+            });
         } );
     </script>
     <div class="row p-3 mb-2 bg-success text-white border border-primary rounded">

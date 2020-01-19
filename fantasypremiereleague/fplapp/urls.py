@@ -22,5 +22,11 @@ urlpatterns = [
   url(r'^success/$', views.success_view, name='email_success'),
   url(r'^fixtures.html$', views.match_fixtures, name='fixtures'),
   url(r'^fplstats.html$', views.fpl_stats, name='fpl_stats'),
+  url(r'^register.html$', views.register, name='register'),
+  url(r'^login.html$', views.login_request, name='login_request'),
+  url(r'^logout.html$', views.logout_request, name='logout_request'),
+  url(r'^winners.html$', views.winners, name='winners'),
   url(r'^test.html$', views.test, name='test'),
+  url(r'^$', views.IndexView.as_view(), name='index'),
+  url(r'^teamstats/$', views.PlotView.as_view(), name='plot'),
 ]

@@ -11,7 +11,9 @@
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#fplstats').DataTable();
+            $('#fplstats').DataTable({
+            "order": [[ 0, "asc" ]]
+            });
         } );
     </script>
     <div class="row p-3 mb-2 bg-success text-white border border-primary rounded">
@@ -26,7 +28,7 @@
     <table id="fplstats" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>Game week</th>
+                <th>Game Week</th>
                 <th>Highest Score</th>
                 <th>Bench Boost Played</th>
                 <th>Free Hit Played</th>
@@ -41,7 +43,8 @@
         </thead>
         <tbody>
         {% for event in gw_events_info %}
-        {% player_name event.most_selected players_info as top_selected_full_name %}
+        {% player_name event.most_selected players_info as most_selected_full_name %}
+        {% player_name event.most_transferred_in players_info as most_transferred_in_full_name %}
         {% player_name event.top_element players_info as top_element_full_name %}
         {% player_name event.most_captained players_info as most_captained_full_name %}
         {% player_name event.most_vice_captained players_info as most_vice_captained_full_name %}
@@ -52,8 +55,8 @@
                 <td>{{ event.chip_plays.1.num_played }} </td>
                 <td>{{ event.chip_plays.2.num_played }} </td>
                 <td>{{ event.chip_plays.3.num_played }}</td>
-                <td>{{ top_selected_full_name }}</td>
-                <td>{{ event.most_transferred_in }}</td>
+                <td>{{ most_selected_full_name }}</td>
+                <td>{{ most_transferred_in_full_name }}</td>
                 <td>{{ top_element_full_name }} ( {{ event.top_element_info.points }} pts)</td>
                 <td>{{ most_captained_full_name }}</td>
                 <td>{{ most_vice_captained_full_name }}</td>
