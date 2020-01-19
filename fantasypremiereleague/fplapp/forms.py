@@ -18,11 +18,11 @@ class ContactForm(forms.Form):
 
 
 class UserRegistrationForm(UserCreationForm):
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    profile = forms.ImageField(required=False)
-    email = forms.EmailField()
-    phone = forms.IntegerField(required=False)
+    first_name = forms.CharField(max_length=50, required=True)
+    last_name = forms.CharField(max_length=50, required=True)
+    profile = forms.ImageField(required=False, help_text='Optional')
+    email = forms.EmailField(max_length=254, help_text='Required')
+    phone = forms.IntegerField(required=False, help_text='Optional')
 
     class Meta:
         model = User

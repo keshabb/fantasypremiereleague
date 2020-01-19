@@ -1,4 +1,5 @@
 {% extends "fplapp/layout.html" %}
+{% load static %}
 {% block content %}
 <body>
 <div class="container">
@@ -11,14 +12,16 @@
   </div>
 </div>
 </div>
-<div class="container">
+<div class="container" style="background:transparent url('/static/images/field.svg') no-repeat center center /cover">
 <div class="row mt-4 justify-content-around">
     {% for player in team_selection %}
      {% if player.2 == 1 %}
     <div class="col-3">
-  <p align="center">{{ player.0 }}</p>
-        <p align="center">{{ player.1 }}</p>
-      <p align="center">{{ player.3 }}</p>
+  <p align="center">{{ player.0 }}
+      <br>
+      {{ player.1 }}
+      <br>
+      {{ player.3 }}</p>
       </div>
      {% endif %}
     {% endfor %}
@@ -27,9 +30,11 @@
     {% for player in team_selection %}
      {% if player.2 == 2 %}
     <div class="col">
-      <p align="center">{{ player.0 }}</p>
-      <p align="center">{{ player.1 }}</p>
-      <p align="center">{{ player.3 }}</p>
+      <p align="center">{{ player.0 }}
+          <br>
+      {{ player.1 }}
+          <br>
+      {{ player.3 }}</p>
       </div>
      {% endif %}
     {% endfor %}
@@ -38,9 +43,11 @@
     {% for player in team_selection %}
      {% if player.2 == 3 %}
     <div class="col">
-      <p align="center">{{ player.0 }}</p>
-      <p align="center">{{ player.1 }}</p>
-      <p align="center">{{ player.3 }}</p>
+      <p align="center">{{ player.0 }}
+        <br>
+      {{ player.1 }}
+        <br>
+      {{ player.3 }}</p>
       </div>
      {% endif %}
     {% endfor %}
@@ -49,9 +56,11 @@
     {% for player in team_selection %}
      {% if player.2 == 4 %}
     <div class="col-3">
-      <p align="center">{{ player.0 }}</p>
-      <p align="center">{{ player.1 }}</p>
-      <p align="center">{{ player.3 }}</p>
+      <p align="center">{{ player.0 }}
+        <br>
+      {{ player.1 }}
+        <br>
+          {{ player.3 }}</p>
       </div>
      {% endif %}
     {% endfor %}
