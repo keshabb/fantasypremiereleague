@@ -15,7 +15,7 @@ Django==4.2.26
 django-crispy-forms==1.7.2
 django-mysql==2.2.0
 fpl==0.6.15
-idna==2.8
+idna==3.7
 importlib-metadata==0.23
 more-itertools==7.2.0
 multidict==4.5.2
